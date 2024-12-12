@@ -1,0 +1,74 @@
+@startuml
+
+left to right direction
+
+package model {
+    class Employee {
+        -String name
+        -String surname
+        -String email
+        -String cin
+        -String address
+        -String phone
+        +getName() : String
+        +setName(name : String) : void
+        +getSurname() : String
+        +setSurname(surname : String) : void
+        +getEmail() : String
+        +setEmail(email : String) : void
+        +getCin() : String
+        +setCin(cin : String) : void
+        +getAddress() : String
+        +setAddress(address : String) : void
+        +getPhone() : String
+        +setPhone(phone : String) : void
+        +toString() : String
+    }
+
+    class Admin {
+        // Add attributes and methods if any
+    }
+}
+
+package service {
+    interface RMIInterface {
+        +login(username : String, password : String) : boolean
+        +addEmployee(name : String, surname : String, email : String, cin : String, address : String, phone : String) : void
+        +updateEmployee(cin : String, name : String, surname : String, email : String, address : String, phone : String) : void
+        +deleteEmployee(cin : String) : void
+        +getAllEmployees() : List<String>
+        +getEmployeeDetails(cin : String) : String
+    }
+
+    class ServerImplementation {
+        +login(username : String, password : String) : boolean
+        +addEmployee(name : String, surname : String, email : String, cin : String, address : String, phone : String) : void
+        +updateEmployee(cin : String, name : String, surname : String, email : String, address : String, phone : String) : void
+        +deleteEmployee(cin : String) : void
+        +getAllEmployees() : List<String>
+        +getEmployeeDetails(cin : String) : String
+    }
+
+    class Server {
+        +main(args : String[]) : void
+    }
+}
+
+package client {
+    class AdminClient {
+        +main(args : String[]) : void
+    }
+
+    class EmployeeClient {
+        +main(args : String[]) : void
+    }
+}
+
+Employee -[hidden]-> Admin
+
+ServerImplementation ..|> RMIInterface
+ServerImplementation --> Employee
+AdminClient --> RMIInterface
+EmployeeClient --> RMIInterface
+
+@enduml
